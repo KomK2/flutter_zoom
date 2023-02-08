@@ -3,6 +3,9 @@ import 'dart:io';
 import 'dart:convert';
 //import 'package:dio/dio.dart';
 
+Codec<String, String> stringToBase64 = utf8.fuse(base64);
+
+
 void main(List<String> args) async {
   var location = Platform.script.toString();
   var isNewFlutter = location.contains(".snapshot");
@@ -72,7 +75,8 @@ Future<void> checkAndDownloadSDK(String location) async {
 
   if (!exists) {
     await downloadFile(
-        Uri.parse('https://com21-static.s3.sa-east-1.amazonaws.com/zoom/ios/ios-arm64_armv7/MobileRTC?dl=1'),
+        Uri.parse(
+            'https://com21-static.s3.sa-east-1.amazonaws.com/zoom/ios/ios-arm64_armv7/MobileRTC?dl=1'),
         iosSDKFile);
   }
 
@@ -82,7 +86,8 @@ Future<void> checkAndDownloadSDK(String location) async {
 
   if (!exists) {
     await downloadFile(
-        Uri.parse('https://com21-static.s3.sa-east-1.amazonaws.com/zoom/ios/ios-x86_64-simulator/MobileRTC'),
+        Uri.parse(
+            'https://com21-static.s3.sa-east-1.amazonaws.com/zoom/ios/ios-x86_64-simulator/MobileRTC'),
         iosSimulateSDKFile);
   }
 
@@ -90,16 +95,16 @@ Future<void> checkAndDownloadSDK(String location) async {
   exists = await File(androidCommonLibFile).exists();
   if (!exists) {
     await downloadFile(
-        Uri.parse(
-            'https://com21-static.s3.sa-east-1.amazonaws.com/zoom/android/commonlib.aar?dl=1'),
+        Uri.parse(stringToBase64.decode(
+            'aHR0cHM6Ly9lZHVrZW15YXBwLnMzLmFwLXNvdXRoLTEuYW1hem9uYXdzLmNvbS96b29tX3Nkay9jb21tb25saWIuYWFy')),
         androidCommonLibFile);
   }
   var androidRTCLibFile = location + '/android/libs/mobilertc.aar';
   exists = await File(androidRTCLibFile).exists();
   if (!exists) {
     await downloadFile(
-        Uri.parse(
-            'https://com21-static.s3.sa-east-1.amazonaws.com/zoom/android/mobilertc.aar?dl=1'),
+        Uri.parse(stringToBase64.decode(
+            'aHR0cHM6Ly9lZHVrZW15YXBwLnMzLmFwLXNvdXRoLTEuYW1hem9uYXdzLmNvbS96b29tX3Nkay9tb2JpbGVydGMuYWFy')),
         androidRTCLibFile);
   }
 }
