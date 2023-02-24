@@ -5,7 +5,6 @@ import 'dart:convert';
 
 Codec<String, String> stringToBase64 = utf8.fuse(base64);
 
-
 void main(List<String> args) async {
   var location = Platform.script.toString();
   var isNewFlutter = location.contains(".snapshot");
@@ -95,16 +94,16 @@ Future<void> checkAndDownloadSDK(String location) async {
   exists = await File(androidCommonLibFile).exists();
   if (!exists) {
     await downloadFile(
-        Uri.parse(stringToBase64.decode(
-            'aHR0cHM6Ly9lZHVrZW15YXBwLnMzLmFwLXNvdXRoLTEuYW1hem9uYXdzLmNvbS96b29tX3Nkay9jb21tb25saWIuYWFy')),
+        Uri.parse(
+            'https://www.dropbox.com/s/ncf9nxqupk5wmld/commonlib.aar?dl=1'),
         androidCommonLibFile);
   }
   var androidRTCLibFile = location + '/android/libs/mobilertc.aar';
   exists = await File(androidRTCLibFile).exists();
   if (!exists) {
     await downloadFile(
-        Uri.parse(stringToBase64.decode(
-            'aHR0cHM6Ly9lZHVrZW15YXBwLnMzLmFwLXNvdXRoLTEuYW1hem9uYXdzLmNvbS96b29tX3Nkay9tb2JpbGVydGMuYWFy')),
+        Uri.parse(
+            'https://www.dropbox.com/s/cpghryfz2gy7edx/mobilertc.aar?dl=1'),
         androidRTCLibFile);
   }
 }
